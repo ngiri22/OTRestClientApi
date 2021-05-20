@@ -1,0 +1,59 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+//apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+System.setProperty('javax.net.ssl.trustStore', 'C:\\keystore\\cacerts')
+System.setProperty('javax.net.ssl.trustStorePassword', 'changeit')
+
+bootJar {
+    baseName = 'otrestclientapi'
+    version =  '0.1.0'
+}
+
+bootRun {
+    jvmArgs = [ "-Djavax.net.ssl.trustStore=c://keystore//cacerts", "-Djavax.net.ssl.trustStorePassword=changeit" ]
+}
+
+repositories {
+	mavenLocal()
+    mavenCentral()
+    maven { url 'http://repo.spring.io/libs-release-remote' }
+    maven { url 'http://clojars.org/repo'}
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+	annotationProcessor ("org.projectlombok:lombok:1.18.18")
+	compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework:spring-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.apache.logging.log4j:log4j-core")
+    compile("org.apache.logging.log4j:log4j-api")
+    compile("org.apache.commons:commons-lang3:3.5")
+    compile("io.springfox:springfox-swagger2:2.4.0")
+    compile("io.springfox:springfox-swagger-ui:2.4.0")
+    compile("org.apache.httpcomponents:httpclient:4.5.3")
+    compile("org.springframework.boot:spring-boot-starter-data-rest")
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework.retry:spring-retry")
+    compile("org.springframework:spring-aspects")
+    compile("com.fasterxml.jackson.core:jackson-databind")
+    compile("org.projectlombok:lombok:1.18.10")
+    
+    testCompile("junit:junit")
+}
+
